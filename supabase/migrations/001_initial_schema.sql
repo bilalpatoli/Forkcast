@@ -5,6 +5,11 @@ create table if not exists public.saved_restaurants (
   user_id uuid not null references auth.users(id) on delete cascade,
   place_id text not null,
   restaurant_name text not null,
+  address text,
+  rating numeric,
+  review_count integer,
+  photo_url text,
+  summary text,
   created_at timestamptz not null default now(),
   unique (user_id, place_id)
 );
@@ -40,4 +45,3 @@ create policy "Users can read their search history"
 create policy "Users can insert their search history"
   on public.search_history for insert
   with check (auth.uid() = user_id);
-
